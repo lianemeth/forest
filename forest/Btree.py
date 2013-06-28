@@ -71,36 +71,48 @@ class BinaryTree(object):
             # + 1 --> counting self
             return hr + 1
     
-    def in_order(self):
+    def in_order(self, callback=None, **kwargs):
         '''recursive in-order traversal. 
+        callback is a function. Aditional kwargs will be passed to
+        the callback function.
         Returns a list.
         '''
         l = [self]
+        if callback:
+            callback(self, **kwargs)
         if self.left:
-            l = self.left.in_order() + l
+            l = self.left.in_order(callback=callback, **kwargs) + l
         if self.right:
-            l += self.right.in_order()
+            l += self.right.in_order(callback=callback, **kwargs)
         return l
     
-    def pre_order(self):
+    def pre_order(self, callback=None, **kwargs):
         '''recursive pre-order traversal. 
+        callback is a function. Aditional kwargs will be passed to
+        the callback function.
         Returns a list.
         '''
         l = [self]
+        if callback:
+            callback(self **kwargs)
         if self.left:
-            l += self.left.pre_order()
+            l += self.left.pre_order(callback=callback, **kwargs)
         if self.right:
-            l += self.right.pre_order()
+            l += self.right.pre_order(callback=callback, **kwargs)
         return l
     
-    def post_order(self):
+    def post_order(self, callback=None, **kwargs):
         """recursive post-order traversal. 
+        callback is a function. Aditional kwargs will be passed to
+        the callback function.
         Returns a list."""
         l = []
         if self.left:
-            l = self.left.post_order()
+            l = self.left.post_order(callback=callback, **kwargs)
         if self.right:
-            l = l + self.right.post_order()
+            l = l + self.right.post_order(callback=callback, **kwargs)
+        if callback:
+            callback(self, **kwargs)
         l = l + [self]
         return l
     
