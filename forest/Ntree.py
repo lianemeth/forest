@@ -1,0 +1,38 @@
+"""
+N-ary Tree implementations.
+@author: Lucas Nemeth
+"""
+
+import weakref
+
+class NaryTree(object):
+    '''A generic N-ary tree implementations, that uses a list to store
+    it's children.
+    '''
+    
+    def __init__(self, key=None, item=None, children=None):
+        self.key = key
+        self.item = item
+        self.children = children or []
+        self._parent = None
+
+    @property
+    def parent(self):
+        if self._parent:
+            return self._parent()
+
+    def __getstate__(self):
+        self._parent = None
+        return self.__dict__
+
+    def __setstate__(self, state):
+        self.__dict__ = state
+        for child in self.children:
+            child._parent = weakref.ref(self)
+
+    def is_leaf(self):
+        return len(self.children) == 0
+
+    def get_height(self):
+        heights = [child.get_height() for child in self.children]
+        return max(heights) + 1
