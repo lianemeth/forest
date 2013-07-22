@@ -77,7 +77,7 @@ class BinaryTree(object):
         hl = self.left.getHeigth()
         hr = self.right.getHeigth()
         #returns the highest heigth
-        if (hl < hr):
+        if (hl > hr):
             # + 1 --> counting self
             return hl + 1
         else:
