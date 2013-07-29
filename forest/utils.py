@@ -33,7 +33,7 @@ class Stack(object):
         self._stack.append(obj)
     
     def pop(self):
-        return self._stack.pop(len(self._stack) - 1)
+        return self._stack.pop()
     
     def top(self):
         return self._stack[len(self._stack) - 1]
