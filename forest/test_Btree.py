@@ -1,6 +1,7 @@
 import unittest
 from Btree import *
 
+
 class TestBinaryTree(unittest.TestCase):
 
     def setUp(self):
@@ -21,27 +22,30 @@ class TestBinaryTree(unittest.TestCase):
         i = BinaryTree(key=17, item='n', left=a, right=f)
         g = BinaryTree(key=0, item='h', left=h, right=i)
         self.tree = g
-    
+
     def test_in_order(self):
-        self.assertEqual(self.tree.in_order() , self.tree.in_order_iterative())
+        self.assertEqual(self.tree.in_order(), self.tree.in_order_iterative())
 
     def test_pre_order(self):
-        self.assertEqual(self.tree.pre_order(), self.tree.pre_order_iterative())
+        self.assertEqual(self.tree.pre_order(),
+                         self.tree.pre_order_iterative())
 
     def test_post_order(self):
-        self.assertEqual(self.tree.post_order(), self.tree.post_order_iterative())
+        self.assertEqual(self.tree.post_order(),
+                         self.tree.post_order_iterative())
+
 
 class TestBinarySearchTree(unittest.TestCase):
 
     #TODO assert tree is sorted method
 
     def setUp(self):
-        self.a = BinarySearchTree(10,'b')
-        self.a.insert(15,'k')
-        self.a.insert(17,'m')
-        self.a.insert(9,'l')
-        self.a.insert(2,'j')
-        self.a.insert(1,'o')
+        self.a = BinarySearchTree(10, 'b')
+        self.a.insert(15, 'k')
+        self.a.insert(17, 'm')
+        self.a.insert(9, 'l')
+        self.a.insert(2, 'j')
+        self.a.insert(1, 'o')
 
     def test_search(self):
         self.assertTrue(self.a.search(2))

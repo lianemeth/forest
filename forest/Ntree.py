@@ -10,11 +10,11 @@ class NaryTree(object):
     '''A generic N-ary tree implementations, that uses a list to store
     it's children.
     '''
-    def __init__(self, key=None, item=None, children=None):
+    def __init__(self, key=None, item=None, children=None, parent=None):
         self.key = key
         self.item = item
         self.children = children or []
-        self._parent = None
+        self._parent = weakref.ref(parent) if parent else None
 
     @property
     def parent(self):
@@ -43,3 +43,9 @@ class NaryTree(object):
         for child in self.children:
             l += child.traversal(visit, *args, **kwargs)
         return l
+
+    def add_child(self, key=None, item=None):
+        child = NaryTree(key=key, item=item, parent=self)
+        self.children.add(child)
+        return child
+
