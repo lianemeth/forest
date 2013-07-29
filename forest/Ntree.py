@@ -36,11 +36,10 @@ class NaryTree(object):
     def get_height(self):
         heights = [child.get_height() for child in self.children]
         return max(heights) + 1
-    
+
     def traversal(self, visit=None, *args, **kwargs):
         visit(self, *args, **kwargs)
         l = [self]
         for child in self.children:
             l += child.traversal(visit, *args, **kwargs)
         return l
-
