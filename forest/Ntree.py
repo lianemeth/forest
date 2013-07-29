@@ -5,11 +5,11 @@ N-ary Tree implementations.
 
 import weakref
 
+
 class NaryTree(object):
     '''A generic N-ary tree implementations, that uses a list to store
     it's children.
     '''
-    
     def __init__(self, key=None, item=None, children=None):
         self.key = key
         self.item = item
@@ -36,3 +36,11 @@ class NaryTree(object):
     def get_height(self):
         heights = [child.get_height() for child in self.children]
         return max(heights) + 1
+    
+    def traversal(self, visit=None, *args, **kwargs):
+        visit(self, *args, **kwargs)
+        l = [self]
+        for child in self.children:
+            l += child.traversal(visit, *args, **kwargs)
+        return l
+
