@@ -48,4 +48,3 @@ class NaryTree(object):
         child = NaryTree(key=key, item=item, parent=self)
         self.children.add(child)
         return child
-

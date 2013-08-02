@@ -248,7 +248,6 @@ class BinarySearchTree(BinaryTree):
                 node = node.right
             old_left = self.left
             old_right = self.right
-            parent = tree.parent
             copy_node(tree, self)
             remove_node(tree)
             self.left = old_left
@@ -263,8 +262,8 @@ def remove_node(node):
         else:
             parent.left = None
     else:
-        self.key = None
-        self.item = None
+        node.key = None
+        node.item = None
 
 
 def remove_search_tree(tree, key):
