@@ -19,7 +19,7 @@ class TestNaryTree(unittest.TestCase):
 
     def test_traversal(self):
         def in_here(node):
-            self.assertTrue(node in self.tree.all_items)
+            self.assertTrue(node in self.all_items)
         self.tree.traversal(in_here)
 
 

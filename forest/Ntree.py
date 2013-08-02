@@ -46,5 +46,5 @@ class NaryTree(object):
 
     def add_child(self, key=None, item=None):
         child = NaryTree(key=key, item=item, parent=self)
-        self.children.add(child)
+        self.children.append(child)
         return child
