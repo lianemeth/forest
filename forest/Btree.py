@@ -4,7 +4,7 @@ Binary Tree implementations, recursive and iterative traversals
 """
 
 import weakref
-from utils import Queue, Stack
+from .utils import Queue, Stack
 
 
 def copy_node(origin, destination):

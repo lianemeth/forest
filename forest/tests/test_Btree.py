@@ -1,5 +1,6 @@
 import unittest
-from Btree import *
+from ..Btree import (BinaryTree, remove_search_tree,
+        BinarySearchTree)
 
 
 class TestBinaryTree(unittest.TestCase):
