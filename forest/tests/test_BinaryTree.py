@@ -1,6 +1,5 @@
 import unittest
-from ..BinaryTree import (BinaryTree, remove_search_tree,
-        BinarySearchTree)
+from ..BinaryTree import BinaryTree, BinarySearchTree
 
 
 class TestBinaryTree(unittest.TestCase):
@@ -54,11 +53,11 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertIsNone(self.a.search(219))
 
     def test_remove(self):
-        remove_search_tree(self.a, 1)
+        del self.a[1]
         self.assertIsNone(self.a.search(1))
-        remove_search_tree(self.a, 15)
+        del self.a[15]
         self.assertIsNone(self.a.search(15))
-        remove_search_tree(self.a, 10)
+        del self.a[10]
         self.assertIsNone(self.a.search(10))
 
 if __name__ == '__main__':

@@ -72,11 +72,11 @@ class BinaryTree(object):
     def is_leaf(self):
         return (self.left is None) and (self.right is None)
 
-    def get_heigth(self):
-        """recursive get Heigth method"""
-        hl = self.left.getHeigth()
-        hr = self.right.getHeigth()
-        #returns the highest heigth
+    def get_height(self):
+        """recursive get Height method"""
+        hl = self.left.get_height()
+        hr = self.right.get_height()
+        #returns the highest height
         if (hl > hr):
             # + 1 --> counting self
             return hl + 1
@@ -218,6 +218,9 @@ class BinarySearchTree(BinaryTree):
             else:
                 tree = tree.right
 
+    def __getitem__(self, key):
+        return self.search(key)
+
     def insert(self, key, item):
         tree = self
         aux = tree
@@ -233,6 +236,24 @@ class BinarySearchTree(BinaryTree):
         else:
             aux.right = newtree
 
+    def __delitem__(self, key):
+        node = self.search(key)
+        if not node.right and not node.left:
+            node.remove_node()
+        else:
+            node.remove_root()
+
+    def remove_node(self):
+        parent = self.parent
+        if parent:
+            if parent.right == self:
+                parent.right = None
+            else:
+                parent.left = None
+        else:
+            node.key = None
+            node.item = None
+    
     def remove_root(self):
         #The tree only have a left child
         if self.right is None and not self.left is None:
@@ -249,26 +270,6 @@ class BinarySearchTree(BinaryTree):
             old_left = self.left
             old_right = self.right
             copy_node(tree, self)
-            remove_node(tree)
+            tree.remove_node()
             self.left = old_left
             self.right = old_right
-
-
-def remove_node(node):
-    parent = node.parent
-    if parent:
-        if parent.right == node:
-            parent.right = None
-        else:
-            parent.left = None
-    else:
-        node.key = None
-        node.item = None
-
-
-def remove_search_tree(tree, key):
-    node = tree.search(key)
-    if not node.right and not node.left:
-        remove_node(node)
-    else:
-        node.remove_root()
