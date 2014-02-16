@@ -1,5 +1,5 @@
 import unittest
-from ..Btree import (BinaryTree, remove_search_tree,
+from ..BinaryTree import (BinaryTree, remove_search_tree,
         BinarySearchTree)
 
 

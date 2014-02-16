@@ -1,5 +1,5 @@
 import unittest
-from ..Ntree import NaryTree
+from ..NaryTree import NaryTree
 
 
 class TestNaryTree(unittest.TestCase):

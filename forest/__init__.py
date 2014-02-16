@@ -1,3 +1,3 @@
-from Btree import (BinaryTree, BinarySearchTree, remove_search_tree,
+from BinaryTree import (BinaryTree, BinarySearchTree, remove_search_tree,
         remove_node, copy_node)
-from Ntree import NaryTree
+from NaryTree import NaryTree
