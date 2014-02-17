@@ -273,3 +273,4 @@ class BinarySearchTree(BinaryTree):
             tree.remove_node()
             self.left = old_left
             self.right = old_right
+

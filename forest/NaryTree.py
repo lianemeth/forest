@@ -30,6 +30,9 @@ class NaryTree(object):
         for child in self.children:
             child._parent = weakref.ref(self)
 
+    def __str__(self):
+        return '{} : {}'.format(self.key, self.item)
+
     def is_leaf(self):
         return len(self.children) == 0
 
