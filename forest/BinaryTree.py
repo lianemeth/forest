@@ -274,3 +274,7 @@ class BinarySearchTree(BinaryTree):
             self.left = old_left
             self.right = old_right
 
+class RedBlackTree(BinarySearchTree):
+
+    def insert(self, key, item):
+        pass

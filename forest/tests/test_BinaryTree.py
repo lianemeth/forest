@@ -1,5 +1,5 @@
 import unittest
-from ..BinaryTree import BinaryTree, BinarySearchTree
+from ..BinaryTree import BinaryTree, BinarySearchTree, RedBlackTree
 
 
 class TestBinaryTree(unittest.TestCase):
@@ -53,7 +53,6 @@ class TestBinaryTree(unittest.TestCase):
 
 class TestBinarySearchTree(unittest.TestCase):
 
-
     def setUp(self):
         self.tree = BinarySearchTree(10, 'b')
         self.tree.insert(15, 'k')
@@ -86,6 +85,15 @@ class TestBinarySearchTree(unittest.TestCase):
             return True
         self.assertTrue(self.tree.pre_order(visit=is_sorted))
         
+class TestRedBlacTree(TestBinarySearchTree):
+
+    def setUp(self):
+        self.tree = RedBlackTree(10, 'b')
+        self.tree.insert(15, 'k')
+        self.tree.insert(17, 'm')
+        self.tree.insert(9, 'l')
+        self.tree.insert(2, 'j')
+        self.tree.insert(1, 'o')
 
 if __name__ == '__main__':
     unittest.main()
