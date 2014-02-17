@@ -28,7 +28,7 @@ tree.pre_order(visit=do_something)
 from forest.BinaryTree import BinarySearchTree
 
 tree = BinarySearchTree(10, 'b')
-tree[15'] = 'k'
+tree[15] = 'k'
 tree[17] = 'm'
 
 # search
