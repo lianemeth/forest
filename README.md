@@ -2,11 +2,9 @@ forest
 ======
 
 Python Trees:
-	- Binary Tree
-	- Binary Search Tree
-	- N-ary Tree
-
-Examples:
+* Binary Tree
+* Binary Search Tree
+* N-ary Tree
 
 ## Binary Tree
 
