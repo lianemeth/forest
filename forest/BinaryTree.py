@@ -236,6 +236,9 @@ class BinarySearchTree(BinaryTree):
         else:
             aux.right = newtree
 
+    def __setitem__(self, key, val):
+        self.insert(key, val)
+
     def __delitem__(self, key):
         node = self.search(key)
         if not node.right and not node.left:

@@ -56,11 +56,11 @@ class TestBinarySearchTree(unittest.TestCase):
 
     def setUp(self):
         self.tree = BinarySearchTree(10, 'b')
-        self.tree.insert(15, 'k')
-        self.tree.insert(17, 'm')
-        self.tree.insert(9, 'l')
-        self.tree.insert(2, 'j')
-        self.tree.insert(1, 'o')
+        self.tree[15] = 'k'
+        self.tree[17] = 'm'
+        self.tree[9] = 'l'
+        self.tree[2] = 'j'
+        self.tree[1] = 'o'
 
     def test_search(self):
         self.assertEqual(self.tree[2].item, 'j')
