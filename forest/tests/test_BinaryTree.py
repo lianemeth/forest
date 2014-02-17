@@ -85,39 +85,15 @@ class TestBinarySearchTree(unittest.TestCase):
             return True
         self.assertTrue(self.tree.pre_order(visit=is_sorted))
         
-class TestRedBlacTree(unittest.TestCase):
+class TestRedBlackTree(TestBinarySearchTree):
 
     def setUp(self):
         self.tree = RedBlackTree(10, 'b')
-        self.tree.insert(15, 'k')
-        self.tree.insert(17, 'm')
-        self.tree.insert(9, 'l')
-        self.tree.insert(2, 'j')
-        self.tree.insert(1, 'o')
-
-    def test_search(self):
-        self.assertEqual(self.tree[2].item, 'j')
-        self.assertEqual(self.tree[1].item, 'o')
-        self.assertIsNone(self.tree[219])
-
-    def test_remove(self):
-        del self.tree[1]
-        self.assertIsNone(self.tree[1])
-        del self.tree[15]
-        self.assertIsNone(self.tree[15])
-        del self.tree[10]
-        self.assertIsNone(self.tree[10])
-
-    def test_search_tree(self):
-        def is_sorted(node):
-            if node.left:
-                if node.left.get_key() > node.get_key():
-                    return False
-            if node.right:
-                if node.right.get_key() < node.get_key():
-                    return False
-            return True
-        self.assertTrue(self.tree.pre_order(visit=is_sorted))
+        self.tree[15] = 'k'
+        self.tree[17] = 'm'
+        self.tree[9] = 'l'
+        self.tree[2] = 'j'
+        self.tree[1] = 'o'
 
 if __name__ == '__main__':
     unittest.main()

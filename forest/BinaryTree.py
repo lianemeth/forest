@@ -280,8 +280,9 @@ class BinarySearchTree(BinaryTree):
 
 class RedBlackTree(BinarySearchTree):
 
-    def __init__(self, black=True, *args, **kwargs):
-        super(RedBlackTree, self).__init__(*args, **kwargs)
+    def __init__(self, key=None, item=None, left=None, right=None, black=True):
+        super(RedBlackTree, self).__init__(key=key, item=item, left=left,
+                                           right=right)
         self.black = black
 
     def insert(self, key, item):
