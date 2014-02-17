@@ -235,6 +235,7 @@ class BinarySearchTree(BinaryTree):
             aux.left = newtree
         else:
             aux.right = newtree
+        return newtree
 
     def __delitem__(self, key):
         node = self.search(key)
@@ -276,5 +277,13 @@ class BinarySearchTree(BinaryTree):
 
 class RedBlackTree(BinarySearchTree):
 
+    def __init__(self, black=True, *args, **kwargs):
+        super(RedBlackTree, self).__init__(*args, **kwargs)
+        self.black = black
+
     def insert(self, key, item):
-        pass
+        newtree = super(RedBlackTree, self).insert(key, item)
+        # new nodes are painted red
+        newtree.black = False
+        return newtree
+
