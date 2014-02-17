@@ -74,8 +74,8 @@ class BinaryTree(object):
 
     def get_height(self):
         """recursive get Height method"""
-        hl = self.left.get_height()
-        hr = self.right.get_height()
+        hl = self.left.get_height() if self.left else 0
+        hr = self.right.get_height() if self.right else 0
         #returns the highest height
         if (hl > hr):
             # + 1 --> counting self

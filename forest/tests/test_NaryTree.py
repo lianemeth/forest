@@ -22,6 +22,12 @@ class TestNaryTree(unittest.TestCase):
             self.assertTrue(node in self.all_items)
         self.tree.traversal(in_here)
 
+    def test_height(self):
+        self.assertEqual(self.tree.get_height(), 3)
+
+    def test_leaf(self):
+        self.assertFalse(self.tree.is_leaf())
+        self.assertTrue(self.all_items[8].is_leaf())
 
 if __name__ == '__main__':
     unittest.main()
