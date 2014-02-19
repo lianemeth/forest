@@ -47,6 +47,11 @@ class NaryTree(object):
             l += child.traversal(visit, *args, **kwargs)
         return l
 
+    def __iter__(self):
+        yield self
+        for child in self.children:
+            yield child
+
     def add_child(self, key=None, item=None):
         child = NaryTree(key=key, item=item, parent=self)
         self.children.append(child)

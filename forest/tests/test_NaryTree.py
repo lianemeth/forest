@@ -22,6 +22,10 @@ class TestNaryTree(unittest.TestCase):
             self.assertTrue(node in self.all_items)
         self.tree.traversal(in_here)
 
+    def test_iterator(self):
+        for node in self.tree:
+            self.assertTrue(node in self.all_items)
+
     def test_height(self):
         self.assertEqual(self.tree.get_height(), 3)
 
