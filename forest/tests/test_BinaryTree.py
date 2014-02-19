@@ -26,6 +26,13 @@ class TestBinaryTree(unittest.TestCase):
         key_list = [i.get_key() for i in self.tree.in_order()]
         self.assertEqual(key_list, [1,4,2,8,3,6,5,0,15,14,11,17])
 
+    def test_iterator(self):
+        '''return an in order generator'''
+        key_list = []
+        for node in self.tree:
+            key_list.append(node.get_key())
+        self.assertEqual(key_list, [1,4,2,8,3,6,5,0,15,14,11,17])
+
     def test_pre_order(self):
         self.assertEqual(self.tree.pre_order(),
                          self.tree.pre_order_iterative())
@@ -75,7 +82,7 @@ class TestBinarySearchTree(unittest.TestCase):
         del self.tree[10]
         self.assertIsNone(self.tree[10])
 
-    def test_search_tree(self):
+    def test_sorted_tree(self):
         def is_sorted(node):
             if node.left:
                 if node.left.get_key() > node.get_key():
@@ -86,6 +93,5 @@ class TestBinarySearchTree(unittest.TestCase):
             return True
         self.assertTrue(self.tree.pre_order(visit=is_sorted))
         
-
 if __name__ == '__main__':
     unittest.main()
