@@ -1,6 +1,6 @@
 """
 N-ary Tree implementations.
-@author: Lucas Nemeth
+@author: Lia Nemeth
 """
 
 import weakref

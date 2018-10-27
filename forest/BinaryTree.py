@@ -1,6 +1,6 @@
 """
 Binary Tree implementations, recursive and iterative traversals
-@author: Lucas Nemeth
+@author: Lia Nemeth
 """
 
 import weakref
