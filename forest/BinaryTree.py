@@ -1,6 +1,6 @@
 """
 Binary Tree implementations, recursive and iterative traversals
-@author: Lucas Nemeth
+@author: Lia Nemeth
 """
 
 import weakref
@@ -98,6 +98,15 @@ class BinaryTree(object):
         if self.right:
             l += self.right.in_order(visit=visit, *args, **kwargs)
         return l
+
+    def __iter__(self):
+        if self.left:
+            for node in self.left:
+                yield node
+        yield self
+        if self.right:
+            for node in self.right:
+                yield node
 
     def pre_order(self, visit=None, *args, **kwargs):
         '''recursive pre-order traversal.
