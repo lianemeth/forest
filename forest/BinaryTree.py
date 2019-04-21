@@ -268,8 +268,17 @@ class BinaryTree(object):
 
 
 class BinarySearchTree(BinaryTree):
+    """
+    A Binary Search Tree implementation (en.wikipedia.org/wiki/Binary_tree)
+    This implementation doesn't take care of any balancing of the  tree.
+    """
 
     def search(self, key):
+        """
+        Classic search algorithm on BST
+        Args:
+          key - The key for the node that is being searched
+        """
         tree = self
         while tree:
             if key == tree.key:
@@ -283,6 +292,12 @@ class BinarySearchTree(BinaryTree):
         return self.search(key)
 
     def insert(self, key, item):
+        """
+        Insert a new item in the BST
+        Args:
+            key - the item key
+            item - the item value
+        """
         tree = self
         aux = tree
         while tree:
@@ -301,6 +316,12 @@ class BinarySearchTree(BinaryTree):
         self.insert(key, val)
 
     def __delitem__(self, key):
+        self.remove(key)
+
+    def remove(self, key):
+        """
+        Remove an item of the tree.
+        """
         node = self.search(key)
         if not node.right and not node.left:
             node.remove_node()
@@ -308,6 +329,9 @@ class BinarySearchTree(BinaryTree):
             node.remove_root()
 
     def remove_node(self):
+        """
+        Remove a node that is  not the root of the tree.
+        """
         parent = self.parent
         if parent:
             if parent.right == self:
@@ -319,13 +343,13 @@ class BinarySearchTree(BinaryTree):
             node.item = None
     
     def remove_root(self):
-        #The tree only have a left child
+        #The tree only has a left child
         if self.right is None and not self.left is None:
             copy_node(self.left, self)
-        #The tree only have a right child
+        #The tree only has a right child
         if self.left is None and not self.right is None:
             copy_node(self.right, self)
-        #The tree haves the two children
+        #The tree has two children
         if not self.left is None and not self.right is None:
             node = self.left
             while node:
@@ -337,4 +361,3 @@ class BinarySearchTree(BinaryTree):
             tree.remove_node()
             self.left = old_left
             self.right = old_right
-
