@@ -4,7 +4,7 @@ Binary Tree implementations, recursive and iterative traversals
 """
 
 import weakref
-from .utils import Queue, Stack
+from forest.utils import Queue, Stack
 
 
 def copy_node(origin, destination):
@@ -16,10 +16,19 @@ def copy_node(origin, destination):
 
 
 class BinaryTree(object):
-    '''A generic Binary Tree implementation (en.wikipedia.org/wiki/Binary_tree)
+    """
+    A generic Binary Tree implementation (en.wikipedia.org/wiki/Binary_tree)
     Used as super-class to other binary trees
-    '''
+    """
     def __init__(self, key=None, item=None, left=None, right=None):
+        """
+        Constructor method
+        Args:
+            key - The key value of the node
+            item - The item stored in the node
+            left -  the left node
+            right- the right  node
+        """
         self.key = key
         self.item = item
         self.left = left
@@ -27,10 +36,18 @@ class BinaryTree(object):
         self._parent = None
 
     def __getstate__(self):
+        """
+        This is used if we need to pickle this tree.
+        It removes the weakref to parent, because they would  be dead references
+        if we were to unpikcle.
+        """
         self._parent = None
         return self.__dict__
 
     def __setstate__(self, state):
+        """
+        Recreates the trees including the weakref to parent.
+        """
         self.__dict__ = state
         if self._left:
             self._left.parent = weakref.ref(self)
@@ -39,6 +56,9 @@ class BinaryTree(object):
 
     @property
     def parent(self):
+        """
+        It uses  weakrefs to avoid memory leak
+        """
         if self._parent:
             return self._parent()
 
@@ -48,6 +68,9 @@ class BinaryTree(object):
 
     @left.setter
     def left(self, val):
+        """
+        It uses  weakrefs to avoid memory leak
+        """
         self._left = val
         if not self._left is None:
             self._left._parent = weakref.ref(self)
@@ -58,22 +81,29 @@ class BinaryTree(object):
 
     @right.setter
     def right(self, val):
+        """
+        It uses  weakrefs to avoid memory leak
+        """
         self._right = val
         if not self._right is None:
             self._right._parent = weakref.ref(self)
 
-    def get_key(self):
-        """Returns the key value of the binary tree"""
-        return self.key
-
     def __str__(self):
-        return '{} : {}'.format(self.key, self.item)
+        return '<{type} - {key} : {item}>'.format(type=type(self).__name__, 
+                                                   key=self.key, 
+                                                   item=self.item)
 
     def is_leaf(self):
+        """
+        A leaf is a node  with no children
+        """
         return (self.left is None) and (self.right is None)
 
     def get_height(self):
-        """recursive get Height method"""
+        """
+        Recursive get Height method
+        Get lef height, get righ height, returns the  highest value + 1
+        """
         hl = self.left.get_height() if self.left else 0
         hr = self.right.get_height() if self.right else 0
         #returns the highest height
@@ -85,21 +115,29 @@ class BinaryTree(object):
             return hr + 1
 
     def in_order(self, visit=None, *args, **kwargs):
-        '''recursive in-order traversal.
-        visit is a function. Aditional kwargs will be passed to
-        the visit function.
-        Returns a list.
-        '''
-        l = [self]
+        """
+        Recursive in-order traversal.
+        Args:
+            visit - *optional* A callable object
+            *args - Will be passed to visit
+            **kwargs -  Will be passed to visit
+        Returns:
+            a list containing all nodes in order
+        """
+        l = []
+        if self.left:
+            l += self.left.in_order(visit=visit, *args, **kwargs)
         if visit:
             visit(self, *args, **kwargs)
-        if self.left:
-            l = self.left.in_order(visit=visit, *args, **kwargs) + l
+        l += [self]
         if self.right:
             l += self.right.in_order(visit=visit, *args, **kwargs)
         return l
 
     def __iter__(self):
+        """
+        Default iterator returns a generator in order traversal
+        """
         if self.left:
             for node in self.left:
                 yield node
@@ -109,11 +147,15 @@ class BinaryTree(object):
                 yield node
 
     def pre_order(self, visit=None, *args, **kwargs):
-        '''recursive pre-order traversal.
-        visit is a function. Aditional kwargs will be passed to
-        the visit function.
-        Returns a list.
-        '''
+        """
+        Recursive pre-order traversal.
+        Args:
+            visit - *optional* A callable object
+            *args - Will be passed to visit
+            **kwargs -  Will be passed to visit
+        Returns:
+            a list containing all nodes pre order
+        """
         l = [self]
         if visit:
             visit(self, *args, **kwargs)
@@ -124,44 +166,51 @@ class BinaryTree(object):
         return l
 
     def post_order(self, visit=None, *args, **kwargs):
-        """recursive post-order traversal.
-        visit is a function. Aditional kwargs will be passed to
-        the visit function.
-        Returns a list."""
+        """
+        Recursive post-order traversal.
+        Args:
+            visit - *optional* A callable object
+            *args - Will be passed to visit
+            **kwargs -  Will be passed to visit
+        Returns:
+            a list containing all nodes post order
+        """
         l = []
         if self.left:
-            l = self.left.post_order(visit=visit, *args, **kwargs)
+            l += self.left.post_order(visit=visit, *args, **kwargs)
         if self.right:
-            l = l + self.right.post_order(visit=visit, *args, **kwargs)
+            l += self.right.post_order(visit=visit, *args, **kwargs)
         if visit:
             visit(self, *args, **kwargs)
-        l = l + [self]
+        l += [self]
         return l
 
-    def breadth_first_search(self):
-        """iterative Breadth First Search.
-        Returns a list."""
-        l = []
+    def breadth_first_search(self, key):
+        """
+        Iterative Breadth First Search  algorithm.
+        Args:
+            key - The node key
+        Returns:
+            The item if key is found, or None if not found any item.
+        """
         queue = Queue()
         #enqueue itself
         queue.enqueue(self)
         while not queue.is_empty():
-            #dequeue and gets acess to top of queue
             p = queue.dequeue()
-            #append to output list
-            l.append(p)
-            #gets right child, if it's not empty, enqueue
-            child_right = p.right
-            if child_right:
-                queue.enqueue(child_right)
-            #gets right child, if it's not empty, enqueue
-            child_left = p.left
-            if child_left:
-                queue.enqueue(child_left)
-        return l
+            if p.key == key:
+                # found the item
+                return p
+            # enqueue children
+            if p.right is not None:
+                queue.enqueue(p.right)
+            if p.left is not None:
+                queue.enqueue(p.left)
 
     def in_order_iterative(self):
-        '''iterative in order method. returns a list'''
+        """
+        Iterative in order method. returns a list of all  nodes.
+        """
         stack = Stack()
         tree = self
         l = []
@@ -176,28 +225,31 @@ class BinaryTree(object):
         return l
 
     def pre_order_iterative(self):
-        """Iterative preoder method"""
+        """
+        Iterative pre order method. returns a list of all  nodes.
+        """
         stack = Stack()
         tree = self
-        queue = Queue()
+        output = Queue()
         stack.push(tree)
         l = []
         while not stack.is_empty():
             tree = stack.pop()
-            queue.enqueue(tree)
+            output.enqueue(tree)
             if tree.right:
                 stack.push(tree.right)
             if tree.left:
                 stack.push(tree.left)
-        while not queue.is_empty():
-            l.append(queue.dequeue())
+        while not output.is_empty():
+            l.append(output.dequeue())
         return l
 
     def post_order_iterative(self):
-        """Iterative post order method
-        it's the same method of the preorder
-        iterative, but reversed, using an
-        stack in the place of the queue"""
+        """
+        Iterative post order method
+        Note: it's the same method of the preorder iterative,
+               but using a stack in place of a queue
+        """
         stack = Stack()
         output = Stack()
         tree = self
@@ -220,9 +272,9 @@ class BinarySearchTree(BinaryTree):
     def search(self, key):
         tree = self
         while tree:
-            if key == tree.get_key():
+            if key == tree.key:
                 return tree
-            elif key < tree.get_key():
+            elif key < tree.key:
                 tree = tree.left
             else:
                 tree = tree.right
@@ -235,12 +287,12 @@ class BinarySearchTree(BinaryTree):
         aux = tree
         while tree:
             aux = tree
-            if key < tree.get_key():
+            if key < tree.key:
                 tree = tree.left
             else:
                 tree = tree.right
         newtree = BinarySearchTree(key, item)
-        if key < aux.get_key():
+        if key < aux.key:
             aux.left = newtree
         else:
             aux.right = newtree

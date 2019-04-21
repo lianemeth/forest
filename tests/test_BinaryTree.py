@@ -1,5 +1,5 @@
 import unittest
-from ..BinaryTree import BinaryTree, BinarySearchTree
+from forest.BinaryTree import BinaryTree, BinarySearchTree
 
 
 class TestBinaryTree(unittest.TestCase):
@@ -23,26 +23,26 @@ class TestBinaryTree(unittest.TestCase):
     def test_in_order(self):
         self.assertEqual(self.tree.in_order(),
                          self.tree.in_order_iterative())
-        key_list = [i.get_key() for i in self.tree.in_order()]
+        key_list = [i.key for i in self.tree.in_order()]
         self.assertEqual(key_list, [1,4,2,8,3,6,5,0,15,14,11,17])
 
     def test_iterator(self):
         '''return an in order generator'''
         key_list = []
         for node in self.tree:
-            key_list.append(node.get_key())
+            key_list.append(node.key)
         self.assertEqual(key_list, [1,4,2,8,3,6,5,0,15,14,11,17])
 
     def test_pre_order(self):
         self.assertEqual(self.tree.pre_order(),
                          self.tree.pre_order_iterative())
-        key_list = [i.get_key() for i in self.tree.pre_order()]
+        key_list = [i.key for i in self.tree.pre_order()]
         self.assertEqual(key_list, [0,8,4,1,2,6,3,5,17,14,15,11])
 
     def test_post_order(self):
         self.assertEqual(self.tree.post_order(),
                          self.tree.post_order_iterative())
-        key_list = [i.get_key() for i in self.tree.post_order()]
+        key_list = [i.key for i in self.tree.post_order()]
         self.assertEqual(key_list, [1,2,4,3,5,6,8,15,11,14,17,0])
 
     def test_properties(self):
@@ -85,10 +85,10 @@ class TestBinarySearchTree(unittest.TestCase):
     def test_sorted_tree(self):
         def is_sorted(node):
             if node.left:
-                if node.left.get_key() > node.get_key():
+                if node.left.key > node.key:
                     return False
             if node.right:
-                if node.right.get_key() < node.get_key():
+                if node.right.key < node.key:
                     return False
             return True
         self.assertTrue(self.tree.pre_order(visit=is_sorted))
