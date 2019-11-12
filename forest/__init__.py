@@ -1,2 +1,2 @@
-from BinaryTree import BinaryTree, BinarySearchTree
-from NaryTree import NaryTree
+from forest.BinaryTree import BinaryTree, BinarySearchTree
+from forest.NaryTree import NaryTree

@@ -7,9 +7,10 @@ import weakref
 
 
 class NaryTree(object):
-    '''A generic N-ary tree implementations, that uses a list to store
-    it's children.
-    '''
+    """
+    A generic N-ary tree implementation, that uses a list to store
+    its children.
+    """
     def __init__(self, key=None, item=None, children=None, parent=None):
         self.key = key
         self.item = item
@@ -31,8 +32,9 @@ class NaryTree(object):
             child._parent = weakref.ref(self)
 
     def __str__(self):
-        return '{} : {}'.format(self.key, self.item)
-
+        return '<{type} - {key} : {item}>'.format(type=type(self).__name__, 
+                                                   key=self.key, 
+                                                   item=self.item)
     def is_leaf(self):
         return len(self.children) == 0
 

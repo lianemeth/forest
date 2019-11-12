@@ -1,6 +1,10 @@
 forest
 ======
 
+I'm using this as a playground of implementation of trees in Python.
+Hopefully you find it useful.
+
+
 Python Trees:
 * Binary Tree
 * Binary Search Tree
