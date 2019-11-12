@@ -375,4 +375,30 @@ class RedBlackTree(BinarySearchTree):
         newtree = super(RedBlackTree, self).insert(key, item)
         # new nodes are painted red
         newtree.black = False
+        self.repair_tree()
         return newtree
+
+    def get_uncle(self):
+        if self.parent is None:
+            return 
+        if self == self.parent.left:
+            return self.parent.right
+        else:
+            return self.parent.left
+    
+    def repair_tree(self):
+        uncle = self.get_uncle()
+        if self.parent is None:
+            self.black = True
+        elif self.parent.black:
+            return
+        elif uncle is not None and uncle.black is not True:
+            self.parent.black = True
+            uncle.black = True
+            if self.parent.parent:
+                # TODO check the logic here
+                self.parent.parent.black = False
+                self.parent.parent.repair_tree()
+        else:
+            # insert case 4 and rotations
+            pass
