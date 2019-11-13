@@ -402,3 +402,21 @@ class RedBlackTree(BinarySearchTree):
         else:
             # insert case 4 and rotations
             pass
+
+    def rotate_left(self):
+        nnew = self.right
+        parent = self.parent
+        assert nnew is not None
+        self.right = nnew.left
+        nnew.left = self
+        self.parent = nnew
+        if self.right is not None:
+            self.right.parent = self
+        if parent is not None:
+            if self == parent.left:
+                parent.left = nnew
+            elif self == parent.right:
+                parent.right = nnew
+
+    def rotate_right(self):
+        pass
