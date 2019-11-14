@@ -380,28 +380,41 @@ class RedBlackTree(BinarySearchTree):
 
     def get_uncle(self):
         if self.parent is None:
-            return 
+            return
         if self == self.parent.left:
             return self.parent.right
         else:
             return self.parent.left
-    
+
     def repair_tree(self):
         uncle = self.get_uncle()
-        if self.parent is None:
+        parent = self.parent
+        grandpa = None
+        if parent:
+            grandpa = self.parent.parent or None
+        if parent is None:
             self.black = True
-        elif self.parent.black:
+        elif parent.black:
             return
         elif uncle is not None and uncle.black is not True:
-            self.parent.black = True
+            parent.black = True
             uncle.black = True
-            if self.parent.parent:
-                # TODO check the logic here
-                self.parent.parent.black = False
-                self.parent.parent.repair_tree()
-        else:
-            # insert case 4 and rotations
-            pass
+            if grandpa:
+                grandpa.black = False
+                grandpa.repair_tree()
+        elif grandpa is not None:
+            if self == parent.left and parent == grandpa.right:
+                parent.rotate_left()
+                self = self.left
+            elif self == parent.right and parent == grandpa.left:
+                parent.rotate_right()
+                self = self.right
+            if self == parent.left:
+                grandpa.rotate_right()
+            else:
+                grandpa.rotate_left()
+            parent.black = True
+            grandpa.black = False
 
     def rotate_left(self):
         nnew = self.right
@@ -419,4 +432,16 @@ class RedBlackTree(BinarySearchTree):
                 parent.right = nnew
 
     def rotate_right(self):
-        pass
+        nnew = self.left
+        parent = self.parent
+        assert nnew is not None
+        self.left = nnew.right
+        nnew.right = self
+        self.parent = nnew
+        if self.left is not None:
+            self.left.parent = self
+        if parent is not None:
+            if self == parent.left:
+                parent.left = nnew
+            elif self == parent.right:
+                parent.right = nnew

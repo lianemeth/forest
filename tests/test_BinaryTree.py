@@ -91,7 +91,8 @@ class TestBinarySearchTree(unittest.TestCase):
                     return False
             return True
         self.assertTrue(self.tree.pre_order(visit=is_sorted))
-        
+
+
 class TestRedBlackTree(TestBinarySearchTree):
 
     def setUp(self):
@@ -101,6 +102,16 @@ class TestRedBlackTree(TestBinarySearchTree):
         self.tree[9] = 'l'
         self.tree[2] = 'j'
         self.tree[1] = 'o'
+
+    def is_the_root_black(self):
+        self.assertTrue(self.tree.black)
+
+    def red_nodes_have_black_children(self):
+        for node in self.tree:
+            if not self.black:
+                self.assertTrue(self.left is None or self.left.black)
+                self.assertTrue(self.right is None or self.right.black)
+
 
 if __name__ == '__main__':
     unittest.main()
