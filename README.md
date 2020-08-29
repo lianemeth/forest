@@ -42,6 +42,8 @@ tree[15]
 del tree[15]
 ```
 
+It also contains a Red Black Tree implementation with a similar interface.
+
 ## N-ary Tree
 
 

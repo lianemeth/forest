@@ -89,8 +89,8 @@ class BinaryTree(object):
             self._right._parent = weakref.ref(self)
 
     def __str__(self):
-        return '<{type} - {key} : {item}>'.format(type=type(self).__name__, 
-                                                   key=self.key, 
+        return '<{type} - {key} : {item}>'.format(type=type(self).__name__,
+                                                   key=self.key,
                                                    item=self.item)
 
     def is_leaf(self):
